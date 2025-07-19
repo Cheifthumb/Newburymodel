@@ -105,16 +105,17 @@ if uploaded_file:
 
     # Strategy settings
     rank_filter_enabled = True
-    allowed_predicted_ranks = [3,4]
+    allowed_predicted_ranks = [2,4]
     daily_bankroll = 10000
     bankroll_perc = 0.1
     stake_pool = daily_bankroll * bankroll_perc
-    min_ev_threshold = 0.1
-    min_kelly_fraction = 0.04
-    max_odds_threshold = 10.1
+    min_ev_threshold = 0.00
+    min_kelly_fraction = 0.00
+    min_odds_threshold = 5.01  # or whatever minimum odds you want
+    max_odds_threshold = 15.1
     winrate_filter_type = 'none'
     fixed_winrate_threshold = 0.03
-    min_runners = 6
+    min_runners = 7
     max_runners = 7
 
     predictions['Reject_Reason'] = ''
@@ -132,6 +133,8 @@ if uploaded_file:
     predictions.loc[predictions['Kelly_Fraction'] <= min_kelly_fraction, 'Reject_Reason'] += 'kelly_low|'
     predictions.loc[predictions['Odds_To_Use'] > max_odds_threshold, 'Reject_Reason'] += 'odds_high|'
     predictions.loc[(predictions['Field_Size'] < min_runners) | (predictions['Field_Size'] > max_runners), 'Reject_Reason'] += 'field_size|'
+    predictions.loc[predictions['Odds_To_Use'] < min_odds_threshold, 'Reject_Reason'] += 'odds_low|'
+
 
     if winrate_filter_type == 'fixed':
         predictions['Winrate_Threshold'] = fixed_winrate_threshold
@@ -150,6 +153,8 @@ if uploaded_file:
         (predictions['Field_Size'] <= max_runners) &
         (predictions['Predicted_Win_Probability'] > predictions['Winrate_Threshold']) &
         (predictions['Predicted_Rank'].isin(allowed_predicted_ranks))
+        (predictions['Odds_To_Use'] >= min_odds_threshold)
+
     )
 
     # Stake assignment

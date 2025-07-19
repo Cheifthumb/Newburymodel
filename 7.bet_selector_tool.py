@@ -20,7 +20,7 @@ max_runners = 40
 
 # ✅ NEW: Optional rank filter
 rank_filter_enabled = True  # Set to False to disable
-allowed_predicted_ranks = [1,2]  # Only allow top 1 or 2 picks per race
+allowed_predicted_ranks = [2,4]  # Only allow top 1 or 2 picks per race
 
 # 📥 Step 1: Load predictions
 predictions = pd.read_csv('Daily_Bets/predicted_win_probabilities.12.07.2025 Copy.csv')

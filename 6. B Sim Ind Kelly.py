@@ -19,10 +19,10 @@ data['Expected_Value'] = (data['Predicted_Win_Probability'] * (data['Odds_To_Use
 initial_bankroll = 10000
 current_bankroll = initial_bankroll
 bankroll_perc = 0.1
-min_ev_threshold = 0.1
-min_kelly_fraction = 0.04
-max_odds_threshold = 10.1
-min_odds_threshold = 1.5  # ✅ New minimum odds threshold
+min_ev_threshold = 0.00
+min_kelly_fraction = 0.00
+max_odds_threshold = 15.1
+min_odds_threshold = 5.01  # ✅ New minimum odds threshold
 
 # ✅ Stake mode: 'kelly', 'fixed', or 'winrate'
 stake_mode = 'kelly'
@@ -33,7 +33,7 @@ winrate_filter_type = 'none'  # Options: 'none', 'fixed', 'dynamic'
 fixed_winrate_threshold = 0.03
 
 # ✅ Rank filter: Only include predicted rank 1, 2, or 3 horses
-allowed_predicted_ranks = [3,4]
+allowed_predicted_ranks = [2,4]
 
 # ✅ Track filter
 track_filter = None
@@ -55,7 +55,7 @@ for race_id, race_df in data.groupby('Race_ID', sort=False):
         print(f"⏩ Skipping Race {race_id} (No runners match rank filter)")
         continue
 
-    if not ((4 <= full_field_size <= 7) or (full_field_size >= 41)):
+    if not ((7 <= full_field_size <= 7) or (full_field_size >= 41)):
         print(f"⏩ Skipping Race {race_id} (Field size = {full_field_size})")
         continue
 
