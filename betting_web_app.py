@@ -149,7 +149,7 @@ if uploaded_file:
         (predictions['Expected_Value'] > min_ev_threshold) &
         (predictions['Kelly_Fraction'] > min_kelly_fraction) &
         (predictions['Odds_To_Use'] <= max_odds_threshold) &
-        (predictions['Odds_To_Use'] >= min_odds_threshold)
+        (predictions['Odds_To_Use'] >= min_odds_threshold) &
         (predictions['Field_Size'] >= min_runners) &
         (predictions['Field_Size'] <= max_runners) &
         (predictions['Predicted_Win_Probability'] > predictions['Winrate_Threshold']) &
